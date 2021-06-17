@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+
+<robot name="innok_heros_4w" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <xacro:property name="wheel_radius" value="0.200" />
+  <xacro:property name="wheel_width"  value="0.100" />
+  <xacro:property name="wheel_mass"   value="5.4" />
+  <xacro:property name="camera_size"   value="0.05" />
+  <xacro:property name="camera_mass"   value="1e-5" />
+  <xacro:property name="laser_size_x" value="0.04"/>
+  <xacro:property name="laser_size_y" value="0.04"/>
+  <xacro:property name="laser_size_z" value="0.04"/>
+  <xacro:property name="laser_origin_x" value="0.85"/>
+  <xacro:property name="laser_origin_y" value="0.0"/>
+  <xacro:property name="laser_origin_z" value="0.025"/>
+
+  <xacro:include filename="$(find auto_tractor)/urdf/heros_base_link.xacro"/>
+  <xacro:include filename="$(find auto_tractor)/urdf/heros_wheel_tractor.xacro"/>
+  <xacro:include filename="$(find auto_tractor)/urdf/heros_drive.xacro"/>
+  <xacro:include filename="$(find auto_tractor)/urdf/heros_battery.xacro"/>
+  <xacro:include filename="$(find auto_tractor)/urdf/heros_mounting_plate.xacro"/>
+
+  <xacro:include filename="$(find auto_tractor)/urdf/heros_joint_pub.xacro" />
+  <xacro:include filename="$(find auto_tractor)/urdf/heros_skid_drive.xacro" />
+
+  <heros_base_link   							/>
+  <heros_drive	 	  front_rear='front'    dx='0.782' flip_z='-1'	/> 
+  <heros_drive	 	  front_rear='rear'     dx='0.018' flip_z='1'	/>
+  <heros_battery 	  name='battery_box'    dx='0.336'		/>
+  <heros_mounting_plate   wheels='4'	 	dx='-0.02'		/>
+
+  <heros_joint_pub joints='joint_base_wheel_rear_left, joint_base_wheel_rear_right, joint_base_wheel_front_left, joint_base_wheel_front_right'/>
+  <heros_skid_drive/>
+
+  <!-- Back Camera -->
+  <link name="camera_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="${camera_size} ${camera_size} ${camera_size}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="${camera_size} ${camera_size} ${camera_size}"/>
+      </geometry>
+      <material name="dark blue">
+        <color rgba="0 0 0.75 1"/>
+      </material>
+
+    </visual>
+
+    <inertial>
+      <mass value="${camera_mass}" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+  <joint name="camera_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="0.0 0.0 0.075" rpy="3.141592 3.141592 0"/>
+    <parent link="base_link"/>
+    <child link="camera_link"/>
+  </joint>
+
+  <gazebo reference="camera_link">
+    <material>Gazebo/Blue</material>
+    <sensor type="camera" name="camera1">
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>800</width>
+          <height>800</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise is sampled independently per pixel on each frame.
+               That pixel's noise value is added to each of its color
+               channels, which at that point lie in the range [0,1]. -->
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>camera</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera_link</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- Laser Sensor -->
+  <link name="sensor_laser">
+    <visual>
+      <geometry>
+        <box size="${laser_size_x} ${laser_size_y} ${laser_size_z}"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${laser_size_x} ${laser_size_y} ${laser_size_z}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1e-5" />
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+ 
+  <joint name="sensor_laser_joint" type="fixed">
+    <origin xyz="${laser_origin_x} ${laser_origin_y} ${laser_origin_z}" rpy="0 0 0" />
+    <parent link="base_link"/>
+    <child link="sensor_laser" />
+  </joint>
+
+  <gazebo reference="sensor_laser">
+    <material>Gazebo/Black</material>
+    <sensor type="ray" name="head_hokuyo_sensor">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>true</visualize>
+      <update_rate>20</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>720</samples>
+            <resolution>1</resolution>
+            <min_angle>-1.570796</min_angle>
+            <max_angle>1.570796</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.10</min>
+          <max>30.0</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
+        <topicName>laser_scan/scan</topicName>
+        <frameName>sensor_laser</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- Front Depth Camera -->
+  <link name="depth_camera">
+    <visual>
+      <geometry>
+        <box size="${camera_size} ${camera_size} ${camera_size}"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${camera_size} ${camera_size} ${camera_size}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.564" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.003881243" ixy="0.0" ixz="0.0"
+               iyy="0.000498940" iyz="0.0"
+               izz="0.003879257" />
+    </inertial>
+  </link>
+ 
+  <joint name="depth_camera_joint" type="fixed">
+    <origin xyz="0.85 0.0 0.075" rpy="0 0 0" />
+    <parent link="base_link"/>
+    <child link="depth_camera" />
+  </joint>
+
+  <!-- The point cloud pose error is displayed in RVIZ, 
+  and an empty link and an empty joint are added here to adjust the point cloud tf pose -->
+  <link name="camera_link_fake"></link>
+  <joint name="camera_joint_fake" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708 "/>
+    <parent link="depth_camera"/>
+    <child link="camera_link_fake"/>
+  </joint>-->
+
+  <gazebo reference="depth_camera">
+    <material>Gazebo/Red</material>
+    <sensor name="camera" type="depth">
+      <update_rate>20</update_rate>
+      <camera>
+        <horizontal_fov>1.047198</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>1</near>
+          <far>250</far>
+        </clip>
+      </camera>
+      <plugin name="kinect_camera_controller" filename="libgazebo_ros_openni_kinect.so">
+        <baseline>0.1</baseline>
+        <alwaysOn>true</alwaysOn>
+        <updateRate>10</updateRate>
+        <cameraName>depth_camera</cameraName>
+        <imageTopicName>/depth_camera/color/image_raw</imageTopicName>
+        <cameraInfoTopicName>/depth_camera/color/camera_info</cameraInfoTopicName>
+        <depthImageTopicName>/depth_camera/depth/image_raw</depthImageTopicName>
+        <depthImageInfoTopicName>/depth_camera/depth/camera_info</depthImageInfoTopicName>
+        <pointCloudTopicName>/depth_camera/depth/points</pointCloudTopicName>
+        <frameName>camera_link_fake</frameName>
+        <pointCloudCutoff>0.4</pointCloudCutoff>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>
+  
+</robot>

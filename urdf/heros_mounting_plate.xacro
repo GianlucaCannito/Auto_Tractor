@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="heros_plate">		
+<xacro:macro name="heros_mounting_plate" params="wheels dx">
+
+  <link name="mounting_plate">
+    <inertial>
+      <origin
+        xyz="0.319 0 -0.002" rpy="0 0 0" />
+      <mass value="4.35" />
+      <inertia ixx="0.133" ixy="0" ixz="0" iyy="0.278" iyz="0" izz="0.410" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://auto_tractor/meshes/mounting_plate_${wheels}w.STL" />
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.46 0 -0.002" rpy="0 0 0" />
+      <geometry>
+        <box size="0.92 0.72 0.004"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="mounting_plate_joint" type="fixed">
+    <origin xyz=" ${dx} 0 0.05" rpy="0 0 0" />
+    <parent link="beam_link" />
+    <child link="mounting_plate" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+</xacro:macro>
+</robot>

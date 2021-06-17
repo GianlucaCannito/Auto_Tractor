@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="heros_battery">		
+<xacro:macro name="heros_battery" params="name dx">>
+
+  <link name="${name}">
+    <inertial>
+      <origin xyz="0.064 0 -0.1" rpy="0 0 0" />
+      <mass value="4.71" />
+      <inertia ixx="0.114" ixy="0" ixz="0" iyy="0.05" iyz="0" izz="0.078" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://auto_tractor/meshes/battery_box.STL" />
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.062 0 -0.124" rpy="0 0 0" />
+      <geometry>
+        <box size="0.124 0.328 0.248"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="battery_box_joint" type="fixed">
+    <origin
+      xyz="${dx} 0 -0.007" rpy="0 0 0" />
+    <parent link="beam_link" />
+    <child link="${name}" />
+    <axis xyz="0 0 0" />
+  </joint>
+ 
+</xacro:macro>
+</robot>
