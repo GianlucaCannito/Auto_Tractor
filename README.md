@@ -5,6 +5,7 @@ Per avviare la simulazione:
 > roslaunch auto_tractor innok_heros_gazebo.launch
 
 > roslaunch auto_tractor innok_heros_rviz.launch
+---
 
 ## Control
 Per controllare il trattore da tastiera:
