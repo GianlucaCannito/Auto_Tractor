@@ -41,6 +41,7 @@ Per visionare l'immagine della camera (posteriore) e della depth_camera (anterio
 ## Mappa 2D
 - Avviare Gazebo e Rviz (su due schede separate del terminale)
 - Su un'altra scheda utilizzare il seguente comando per introdurre l'algoritmo slam gmapping:
+
   > roslaunch auto_tractor slam_gmapping.launch
 - Su Rviz aggiungere i topic rigurdanti depth_camera, laser e Map
 - Avviare il file teleop.launch per far muovere il trattore. Esplorato tutto l'ambiente la mappa è completa
