@@ -6,7 +6,7 @@ Per avviare la simulazione:
 
 > roslaunch auto_tractor innok_heros_rviz.launch
 
-## Control
+## Controllo
 Per controllare il trattore da tastiera:
 > roslaunch auto_tractor teleop.launch
 
@@ -38,7 +38,14 @@ Per visionare l'immagine della camera (posteriore) e della depth_camera (anterio
 
 > rosrun image_view image_view image:=/depth_camera/depth/image_raw
 
-
+## Mappa 2D
+- Avviare Gazebo e Rviz (su due schede separate del terminale)
+- Su un'altra scheda utilizzare il seguente comando:
+> roslaunch auto_tractor slam_gmapping.launch
+- Su Rviz aggiungere i topic rigurdanti depth_camera, laser e Map
+- Avviare il file teleop.launch per far muovere il trattore. Esplorato tutto l'ambiente la mappa è completa
+- Per salvare la mappa nella cartella desiderata: 
+> rosrun map_server map_saver -f mymap2d
 
 
 
