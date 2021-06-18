@@ -53,6 +53,7 @@ Per visionare l'immagine della camera (posteriore) e della depth_camera (anterio
 ## Mappa 3D
 - Avviare Gazebo e Rviz
 - Avviare il pacchetto Octomap:
+
   > roslaunch auto_tractor octomap.launch
 - Su RViz si aggiunge il MarkerArray con il topic occupied_cells_vis_array
 - Avviare il file teleop.launch per far muovere il trattore. Esplorato tutto l'ambiente la mappa è completa
