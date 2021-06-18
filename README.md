@@ -11,9 +11,9 @@ Per avviare la simulazione:
 Per controllare il trattore da tastiera:
 > roslaunch auto_tractor teleop.launch
 
-(Per muoverlo:)
-   (u    i    o)
-   j    k    l
+Per muoverlo:\\
+   u    i    o\\
+   j    k    l\\
    m    ,    .
 
 q/z : aumenta/diminuisce velocità massima del 10%
