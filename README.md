@@ -5,7 +5,6 @@ Per avviare la simulazione:
 > roslaunch auto_tractor innok_heros_gazebo.launch
 
 > roslaunch auto_tractor innok_heros_rviz.launch
----
 
 ## Control
 Per controllare il trattore da tastiera:
@@ -26,16 +25,18 @@ w/x : aumenta/diminuisce velocità lineare del 10%
 e/c : aumenta/diminuisce velocità angolare del 10%  
 
 cliccando su altri tasti si ferma
----
 
 ## Topic
 Per visualizzare le velocità del trattore su terminale
 > rostopic echo /cmd_vel
----
 
 ## Camera e Depth_Camera
 Per visionare l'immagine della camera (posteriore) e della depth_camera (anteriore) su Gazebo:
 > rosrun image_view image_view image:=/camera/image_raw
+
+> rosrun image_view image_view image:=/depth_camera/color/image_raw
+
+> rosrun image_view image_view image:=/depth_camera/depth/image_raw
 
 
 
