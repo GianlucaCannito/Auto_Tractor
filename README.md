@@ -16,7 +16,10 @@ Per muoverlo:
    j    k    l
    m    ,    .
 
-q/z : aumenta/diminuisce velocità massima del 10%
-w/x : aumenta/diminuisce velocità lineare del 10%
-e/c : aumenta/diminuisce velocità angolare del 10%
-cliccando su altri tasti si ferma
+q/z : aumenta/diminuisce velocità massima del 10%.
+w/x : aumenta/diminuisce velocità lineare del 10%.
+e/c : aumenta/diminuisce velocità angolare del 10%.
+cliccando su altri tasti si ferma.
+
+---
+
