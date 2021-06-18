@@ -57,7 +57,7 @@ Per visionare l'immagine della camera (posteriore) e della depth_camera (anterio
   > roslaunch auto_tractor octomap.launch
 - Su RViz si aggiunge il MarkerArray con il topic occupied_cells_vis_array
 - Avviare il file teleop.launch per far muovere il trattore. Esplorato tutto l'ambiente la mappa è completa
-- Salvare la mappa appena realizzata:
+- Salvare la mappa appena realizzata nella cartella di interesse:
   > rosrun octomap_server octomap_saver -f map3d.bt
 - Per ricaricare la mappa su RViz si utilizza il comando (inserendo Map nel fixed frame):
   > rosrun octomap_server octomap_server_node map3d.bt
