@@ -46,8 +46,8 @@ Per visionare l'immagine della camera (posteriore) e della depth_camera (anterio
 - Avviare il file teleop.launch per far muovere il trattore. Esplorato tutto l'ambiente la mappa è completa
 - Per salvare la mappa nella cartella desiderata: 
   > rosrun map_server map_saver -f mymap2d
-
-
+- Per ricaricare la mappa su Rviz utilizzare il comando: 
+  > roslaunch auto_tractor map.launch
 
 
 
