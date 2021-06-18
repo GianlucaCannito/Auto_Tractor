@@ -40,7 +40,7 @@ Per visionare l'immagine della camera (posteriore) e della depth_camera (anterio
 
 ## Mappa 2D
 - Avviare Gazebo e Rviz (su due schede separate del terminale)
-- Su un'altra scheda utilizzare il seguente comando:
+- Su un'altra scheda utilizzare il seguente comando per introdurre l'algoritmo slam gmapping:
   > roslaunch auto_tractor slam_gmapping.launch
 - Su Rviz aggiungere i topic rigurdanti depth_camera, laser e Map
 - Avviare il file teleop.launch per far muovere il trattore. Esplorato tutto l'ambiente la mappa è completa
@@ -49,6 +49,14 @@ Per visionare l'immagine della camera (posteriore) e della depth_camera (anterio
 - Per ricaricare la mappa su Rviz utilizzare il comando: 
   > roslaunch auto_tractor map.launch
 
-
-
+## Mappa 3D
+- Avviare Gazebo e Rviz
+- Avviare il pacchetto Octomap:
+  > roslaunch auto_tractor octomap.launch
+- Su RViz si aggiunge il MarkerArray con il topic occupied_cells_vis_array
+- Avviare il file teleop.launch per far muovere il trattore. Esplorato tutto l'ambiente la mappa è completa
+- Salvare la mappa appena realizzata:
+  > rosrun octomap_server octomap_saver -f map3d.bt
+- Per ricaricare la mappa su RViz si utilizza il comando (inserendo Map nel fixed frame):
+  > rosrun octomap_server octomap_server_node map3d.bt
 
