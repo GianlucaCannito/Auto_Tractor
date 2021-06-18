@@ -13,11 +13,11 @@ Per controllare il trattore da tastiera:
 
 Per muoverlo:  
 
-   u    i    o
+     u    i    o
    
-   j    k    l
+     j    k    l
    
-   m    ,    .
+     m    ,    .
 
 q/z : aumenta/diminuisce velocità massima del 10%
 
