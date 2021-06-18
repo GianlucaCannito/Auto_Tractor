@@ -26,6 +26,21 @@ w/x : aumenta/diminuisce velocità lineare del 10%
 e/c : aumenta/diminuisce velocità angolare del 10%  
 
 cliccando su altri tasti si ferma
-
 ---
+
+## Topic
+Per visualizzare le velocità del trattore su terminale
+> rostopic echo /cmd_vel
+---
+
+## Camera e Depth_Camera
+Per visionare l'immagine della camera (posteriore) e della depth_camera (anteriore) su Gazebo:
+> rosrun image_view image_view image:=/camera/image_raw
+
+
+
+
+
+
+
 
