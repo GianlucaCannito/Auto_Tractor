@@ -62,3 +62,4 @@ Per visionare l'immagine della camera (posteriore) e della depth_camera (anterio
 - Per ricaricare la mappa su RViz si utilizza il comando (inserendo Map nel fixed frame):
   > rosrun octomap_server octomap_server_node map3d.bt
 
+## Pacchetti ROS 
