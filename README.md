@@ -1,5 +1,24 @@
 # Auto_Tractor
 
+## Pacchetti ROS 
+(da inserire in catkin_ws/src)
+- Twist_mux
+
+  > git clone https://github.com/ros-teleop/twist_mux
+- Teleop_twist_keyboard
+  > git clone https://github.com/ros-teleop/teleop_twist_keyboard
+- Slam_gmapping
+  > git clone https://github.com/ros-perception/slam_gmapping
+- Openslam_gmapping
+  > git clone https://github.com/ros-perception/openslam_gmapping
+  
+(da scaricare)
+- Octomap
+
+  > sudo apt-get install ros-melodic-octomap
+  
+  > sudo apt-get install ros-melodic-octomap-mapping
+
 ## Gazebo e Rviz
 Per avviare la simulazione:
 > roslaunch auto_tractor innok_heros_gazebo.launch
@@ -61,24 +80,4 @@ Per visionare l'immagine della camera (posteriore) e della depth_camera (anterio
   > rosrun octomap_server octomap_saver -f map3d.bt
 - Per ricaricare la mappa su RViz si utilizza il comando (inserendo Map nel fixed frame):
   > rosrun octomap_server octomap_server_node map3d.bt
-
-## Pacchetti ROS 
-(da inserire in catkin_ws/src)
-- Twist_mux
-
-  > git clone https://github.com/ros-teleop/twist_mux
-- Teleop_twist_keyboard
-  > git clone https://github.com/ros-teleop/teleop_twist_keyboard
-- Slam_gmapping
-  > git clone https://github.com/ros-perception/slam_gmapping
-- Openslam_gmapping
-  > git clone https://github.com/ros-perception/openslam_gmapping
-  
-(da scaricare)
-- Octomap
-
-  > sudo apt-get install ros-melodic-octomap
-  
-  > sudo apt-get install ros-melodic-octomap-mapping
-
 
